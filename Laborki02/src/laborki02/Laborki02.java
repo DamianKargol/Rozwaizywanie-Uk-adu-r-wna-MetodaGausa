@@ -5,10 +5,8 @@
  */
 package laborki02;
 
+import java.io.FileNotFoundException;
 import java.util.Random;
-import static laborki02.MergeSort.N;
-import static laborki02.MergeSort.mergesort;
-import static laborki02.MergeSort.tab;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -27,35 +25,31 @@ public class Laborki02 {
 /**
 * @param args
 */
-public static void main(String[] args) {
-int i;
-System.out.println("Zbior przed sortowaniem:");
-for (i=0; i<N; i++)
-System.out.print(tab[i] + " ");
- 
-mergesort(0,N-1);
- 
-System.out.println("\nZbior po sortowaniu:");
-for (i=0; i<N; i++)
-System.out.print(tab[i] + " ");
+public static void main(String[] args) throws FileNotFoundException {
     System.out.println("");
+    MakeTab lista = new MakeTab(100);
+    MergeSort sort = new MergeSort(lista.tablica);
+    sort.mergesort(0, lista.tablica.length - 1);
+    lista.save();
+    lista.reset();
+    QuickSort quicksort = new QuickSort(lista.tablica);
+    quicksort.quicksort(0, lista.tablica.length -1);
+    quicksort.get();
+    quicksort.save();
+    quicksort.time();
+   lista.reset();
+   ShellSort shellsort = new ShellSort(lista.tablica);
+   shellsort.shellsort();
+   shellsort.get();
+   lista.save();
+   Wykres1 wykres = new Wykres1();
+   wykres.Wykres1("QuickSort");
+  
+ 
+  
 
-    System.out.println("");
-    QuickSort quicksort = new QuickSort();
-quicksort.quicksort(100,0, 99);
-quicksort.get();
-quicksort.save();
- 
-    MakeTab lista = new MakeTab();
-lista.makeTab(100);
-quicksort.quicksort(lista.tablica,0, lista.tablica.length -1);
-//int y =1;
-//int x=2;
-//int temp = y;
-//y = x;
-//x = temp; 
-//    System.out.println(x);
-//    System.out.println(y);
+
+
 }
  
 }
